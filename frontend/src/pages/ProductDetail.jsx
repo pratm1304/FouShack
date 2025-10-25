@@ -11,7 +11,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`https://foushack-backend.onrender.com/products/${id}`);
+        const res = await axios.get(`https://foushack.onrender.com/products/${id}`);
         setProduct(res.data);
       } catch (err) {
         console.error(err);

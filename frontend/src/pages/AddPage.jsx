@@ -33,7 +33,7 @@ const AddPage = () => {
     formData.append("price", price);
     formData.append("image", image); // file input
 
-    await axios.post("https://foushack-backend.onrender.com/admin", formData, {
+    await axios.post("https://foushack.onrender.com/admin", formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }

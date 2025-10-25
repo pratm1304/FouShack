@@ -31,7 +31,7 @@ const CartPage = () => {
     }
 
     try {
-      await axios.post("https://foushack-backend.onrender.com/order", { 
+      await axios.post("https://foushack.onrender.com/order", { 
         name,
         items: cart,
         totalAmount

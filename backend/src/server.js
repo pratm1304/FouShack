@@ -15,6 +15,8 @@ app.use(
     cors({
     origin: ["http://localhost:5173", "https://foushack.vercel.app"]}
 ));
+
+
 app.use(express.json());
 app.use("/admin/", appRoutes);
 app.use("/", customerRoutes);
