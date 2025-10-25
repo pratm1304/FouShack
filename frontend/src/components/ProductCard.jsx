@@ -3,7 +3,6 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 import axios from 'axios'
-import Product from '../../../backend/src/models/Product'
 
 const ProductCard = ({ product, setProducts }) => {
 
