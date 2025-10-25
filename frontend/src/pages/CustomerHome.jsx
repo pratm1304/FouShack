@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router";
-import Product from "../../../backend/src/models/Product";
 
 const CustomerHome = () => {
   const [products, setProducts] = useState([]);
