@@ -17,7 +17,7 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await axios.get(`http://localhost:5001/admin/${id}`)
+      const res = await axios.get(`https://foushack-backend.onrender.com/admin/${id}`)
       // console.log(res.data.title)
       setTitle(res.data.title)
       setContent(res.data.content)
@@ -46,7 +46,7 @@ const ProductDetailPage = () => {
 
     if(image) formData.append("image", image); // only if user selected new image
 
-    await axios.put(`http://localhost:5001/admin/${id}`, formData, {
+    await axios.put(`https://foushack-backend.onrender.com/admin/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }

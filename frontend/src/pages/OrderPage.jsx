@@ -12,7 +12,7 @@ const OrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/admin/orders")
+        const res = await axios.get("https://foushack-backend.onrender.com/admin/orders")
         setOrders(res.data)
         console.log(res.data)
       } catch (err) {
