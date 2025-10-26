@@ -57,7 +57,7 @@ const CustomerHome = () => {
           <p className="font-bold">Total Items: {cart.reduce((acc, item) => acc + (item.qty || 1), 0)}</p>
           <p className="font-bold">Total Amount: ₹ {cart.reduce((acc, item) => acc + item.price * (item.qty || 1), 0)}</p>
           <button 
-            onClick={() => navigate("/cart")} 
+            onClick={() => navigate("/customer/cart")} 
             className="btn btn-success mt-2 w-full"
           >
             Go to Cart / Checkout
