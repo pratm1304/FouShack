@@ -31,7 +31,7 @@ const CartPage = () => {
     }
 
     try {
-      await axios.post("https://foushack.onrender.com/order", { 
+      await axios.post("https://foushack.onrender.com/customer/order", { 
         name,
         items: cart,
         totalAmount
@@ -42,7 +42,7 @@ const CartPage = () => {
       navigate("/");
     } catch (error) {
       console.log(error);
-      alert("Error placing order!");
+      toast.error("Error placing order!");
     }
   };
 

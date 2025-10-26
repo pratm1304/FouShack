@@ -11,7 +11,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`https://foushack.onrender.com/products/${id}`);
+        const res = await axios.get(`https://foushack.onrender.com/customer/${id}`);
         setProduct(res.data);
       } catch (err) {
         console.error(err);
@@ -34,7 +34,7 @@ const ProductDetail = () => {
     <div className="container mx-auto p-6">
       <div className="card md:flex shadow-md">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          src={`https://foushack.onrender.com/${product.imageUrl}`}
           alt={product.title}
           className="w-full md:w-1/3 h-64 object-cover rounded-md"
         />

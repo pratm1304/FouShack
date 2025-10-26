@@ -10,8 +10,7 @@ const ProductCard = ({ product, setProducts }) => {
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            await axios.delete(`https://foushack.onrender.com
-/admin/${id}`)
+            await axios.delete(`https://foushack.onrender.com/admin/${id}`)
             setProducts((prev) => prev.filter((product) => product._id !== id))
             toast.success("Product deleted")
 
@@ -25,8 +24,7 @@ const ProductCard = ({ product, setProducts }) => {
             className='w-full sm:w-72 md:w-80 lg:w-80 bg-blue-100 hover:shadow-lg transition-all duration-200
             border-t-4 border-solid border-blue-300 rounded-lg overflow-hidden'
         >
-            <img src={`https://foushack.onrender.com
-/${product.imageUrl}`} alt={product.title} className="w-full h-48 object-cover" />
+            <img src={`https://foushack.onrender.com/${product.imageUrl}`} alt={product.title} className="w-full h-48 object-cover" />
 
             <div className='card-body p-4'>
                 <h3 className='card-title text-base-content text-sm sm:text-base'>{product.title}</h3>

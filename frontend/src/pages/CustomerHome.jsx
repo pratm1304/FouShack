@@ -9,7 +9,7 @@ const CustomerHome = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://foushack.onrender.com/")
+    axios.get("https://foushack.onrender.com/customer/")
       .then(res => setProducts(Array.isArray(res.data) ? res.data : []))
       .catch(err => console.log(err));
   }, []);
