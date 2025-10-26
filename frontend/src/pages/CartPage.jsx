@@ -39,7 +39,7 @@ const CartPage = () => {
       toast.success("Order placed successfully!");
       localStorage.removeItem("cart");
       setCart([]);
-      navigate("/");
+      navigate("/customer/");
     } catch (error) {
       console.log(error);
       toast.error("Error placing order!");
