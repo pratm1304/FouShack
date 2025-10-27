@@ -26,7 +26,7 @@ const ProductCard = ({ product, setProducts }) => {
   >
     {/* Background Image */}
     <img
-      src={`https://foushack.onrender.com/${product.imageUrl}`}
+      src={product.imageUrl}
       alt={product.title}
       className="absolute inset-0 w-full h-full object-cover"
     />

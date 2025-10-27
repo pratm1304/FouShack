@@ -108,7 +108,7 @@ const CustomerHome = () => {
           <div key={p._id} className="card shadow-lg rounded-lg overflow-hidden relative h-80">
             {/* Full Background Image */}
             <img 
-              src={`https://foushack.onrender.com/${p.imageUrl}`} 
+              src={p.imageUrl} 
               alt={p.title} 
               className="absolute inset-0 w-full h-full object-cover"
             />
