@@ -105,7 +105,7 @@ const CustomerHome = () => {
       <h1 className="text-3xl text-purple-700 text-center font-bold mb-6">Welcome to Fou Shack </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map(p => (
-          <div key={p._id} className="card shadow-lg rounded-lg overflow-hidden relative h-80">
+          <div key={p._id} className="card shadow-lg rounded-2xl overflow-hidden relative h-80">
             {/* Full Background Image */}
             <img 
               src={p.imageUrl} 
@@ -114,7 +114,7 @@ const CustomerHome = () => {
             />
             
             {/* Darker Gradient Overlay - increased darkness */}
-            <div className="absolute rounded-3xl inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30"></div>
+            <div className="absolute rounded-3xl inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/20"></div>
             
             {/* Content on Top */}
             <div className="relative z-10 h-full flex flex-col justify-end p-4 text-white">

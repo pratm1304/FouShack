@@ -97,7 +97,7 @@ const AddPage = () => {
 
 
 
-                <div className='card-actions justify-end'>
+                <div className='card-actions justify-end mt-6'>
                   <button type='submit' className='btn btn-secondary'>Add</button>
                 </div>
 

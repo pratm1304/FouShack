@@ -32,7 +32,7 @@ const ProductCard = ({ product, setProducts }) => {
     />
 
     {/* Dark Gradient Overlay */}
-    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-800/70 to-transparent"></div>
+    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/20"></div>
 
     {/* Foreground Content */}
     <div className="relative z-10 h-full flex flex-col justify-end p-4 text-white">
