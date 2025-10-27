@@ -31,7 +31,7 @@ const CartPage = () => {
     }
 
     try {
-      await axios.post("http://localhost:5001/customer/order", { 
+      await axios.post("https://foushack.onrender.com/customer/order", { 
         name,
         items: cart,
         totalAmount

@@ -12,7 +12,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async ()=> {
       try {
-        const res = await axios.get("http://localhost:5001/admin")
+        const res = await axios.get("https://foushack.onrender.com/admin")
         console.log(res.data);
         setProducts(res.data);
         

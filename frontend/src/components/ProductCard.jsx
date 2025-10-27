@@ -10,7 +10,7 @@ const ProductCard = ({ product, setProducts }) => {
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            await axios.delete(`http://localhost:5001/admin/${id}`)
+            await axios.delete(`https://foushack.onrender.com/admin/${id}`)
             setProducts((prev) => prev.filter((product) => product._id !== id))
             toast.success("Product deleted")
 
@@ -26,7 +26,7 @@ const ProductCard = ({ product, setProducts }) => {
   >
     {/* Background Image */}
     <img
-      src={`http://localhost:5001/${product.imageUrl}`}
+      src={`https://foushack.onrender.com/${product.imageUrl}`}
       alt={product.title}
       className="absolute inset-0 w-full h-full object-cover"
     />

@@ -9,7 +9,7 @@
 //   const navigate = useNavigate();
 
 //   useEffect(() => {
-//     axios.get("http://localhost:5001/customer/")
+//     axios.get("https://foushack.onrender.com/customer/")
 //       .then(res => setProducts(Array.isArray(res.data) ? res.data : []))
 //       .catch(err => console.log(err));
 //   }, []);
@@ -81,7 +81,7 @@ const CustomerHome = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:5001/customer/")
+    axios.get("https://foushack.onrender.com/customer/")
       .then(res => setProducts(Array.isArray(res.data) ? res.data : []))
       .catch(err => console.log(err));
   }, []);
@@ -108,7 +108,7 @@ const CustomerHome = () => {
           <div key={p._id} className="card shadow-lg rounded-lg overflow-hidden relative h-80">
             {/* Full Background Image */}
             <img 
-              src={`http://localhost:5001/${p.imageUrl}`} 
+              src={`https://foushack.onrender.com/${p.imageUrl}`} 
               alt={p.title} 
               className="absolute inset-0 w-full h-full object-cover"
             />
