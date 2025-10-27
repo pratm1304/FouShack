@@ -5,17 +5,17 @@ import { PlusIcon, ShoppingCartIcon } from 'lucide-react';
 const Navbar = () => {
   return (
     <header className='bg-purple-300 border-b border-base-content/10'>
-      <div className='mx-2 max-w-screen p-4'>
-        <div className='flex items-center justify-between'>
-          <h1 className='text-3xl font-bold text-primary font-mono tracking-tight'>Fou Shack</h1>
-          <div className='flex items-center gap-4'>
-            <Link to="/admin/add" className='btn btn-primary flex items-center gap-2'>
-              <PlusIcon className='size-5'/>
-              <span>Add Product</span>
+      <div className='container mx-auto px-4 py-4'>
+        <div className='flex flex-col sm:flex-row items-center justify-between gap-4'>
+          <h1 className='text-2xl sm:text-3xl font-bold text-primary font-mono tracking-tight'>Fou Shack</h1>
+          <div className='flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full sm:w-auto'>
+            <Link to="/admin/add" className='btn btn-primary btn-sm sm:btn-md flex items-center justify-center gap-2'>
+              <PlusIcon className='size-4 sm:size-5'/>
+              <span className='whitespace-nowrap'>Add Product</span>
             </Link>
-            <Link to="/admin/orders" className='btn btn-secondary flex items-center gap-2'>
-              <ShoppingCartIcon className='size-5'/>
-              <span>Check Orders</span>
+            <Link to="/admin/orders" className='btn btn-secondary btn-sm sm:btn-md flex items-center justify-center gap-2'>
+              <ShoppingCartIcon className='size-4 sm:size-5'/>
+              <span className='whitespace-nowrap'>Check Orders</span>
             </Link>
           </div>
         </div>

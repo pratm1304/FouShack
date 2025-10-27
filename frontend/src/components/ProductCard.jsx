@@ -10,7 +10,7 @@ const ProductCard = ({ product, setProducts }) => {
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            await axios.delete(`https://foushack.onrender.com/admin/${id}`)
+            await axios.delete(`http://localhost:5001/admin/${id}`)
             setProducts((prev) => prev.filter((product) => product._id !== id))
             toast.success("Product deleted")
 
@@ -20,28 +20,49 @@ const ProductCard = ({ product, setProducts }) => {
     }
 
     return (
-        <Link to={`/admin/${product._id}`}
-            className='w-full sm:w-72 md:w-80 lg:w-80 bg-blue-100 hover:shadow-lg transition-all duration-200
-            border-t-4 border-solid border-blue-300 rounded-lg overflow-hidden'
-        >
-            <img src={product.imageUrl} alt={product.title} className="w-full h-48 object-cover" />
+  <Link
+    to={`/admin/${product._id}`}
+    className="relative mt-2 w-full h-80 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+  >
+    {/* Background Image */}
+    <img
+      src={`http://localhost:5001/${product.imageUrl}`}
+      alt={product.title}
+      className="absolute inset-0 w-full h-full object-cover"
+    />
 
-            <div className='card-body p-4'>
-                <h3 className='card-title text-base-content text-sm sm:text-base'>{product.title}</h3>
-                <p className='text-base-content/70 line-clamp-3 text-xs sm:text-sm'>{product.content}</p>
-                <span className='badge badge-outline badge-primary flex items-center gap-1 text-base-content/70 text-xs sm:text-sm mt-2'>
-                    <IndianRupeeIcon className='size-3' /> {product.price}
-                </span>
-                <div className='mt-4 flex items-center justify-between'>
-    <PenSquareIcon className='size-5' />
-    <button onClick={(e) => handleDelete(e, product._id)} className='btn btn-ghost btn-xs text-error p-1'>
-        <Trash2Icon className='size-5' />
-    </button>
-</div>
+    {/* Dark Gradient Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-800/70 to-transparent"></div>
 
-            </div>
-        </Link>
-    )
+    {/* Foreground Content */}
+    <div className="relative z-10 h-full flex flex-col justify-end p-4 text-white">
+      <h3 className="font-bold text-lg mb-1 drop-shadow-[0_2px_4px_rgba(0,0,0,0.7)]">
+        {product.title}
+      </h3>
+      <p className="text-sm mb-3 line-clamp-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+        {product.content}
+      </p>
+
+      {/* Price and Icons Row */}
+      <div className="flex items-center justify-between mt-2">
+        <span className="flex items-center gap-1 text-yellow-300 font-semibold text-sm">
+          <IndianRupeeIcon className=" size-3" /> {product.price}
+        </span>
+
+        <div className="flex items-center gap-2">
+          <PenSquareIcon className="size-5 text-blue-300 cursor-pointer hover:text-blue-100 transition" />
+          <button
+            onClick={(e) => handleDelete(e, product._id)}
+            className="p-1 hover:bg-red-500/20 rounded transition-colors"
+          >
+            <Trash2Icon className="size-5 text-red-400 hover:text-red-200 transition" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </Link>
+)
+
 
 }
 

@@ -12,7 +12,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async ()=> {
       try {
-        const res = await axios.get("https://foushack.onrender.com/admin")
+        const res = await axios.get("http://localhost:5001/admin")
         console.log(res.data);
         setProducts(res.data);
         
@@ -35,11 +35,9 @@ const HomePage = () => {
       {loading && <div className="text-center text-primary py-10">Loading Products...</div>}
       
       {products.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {products.map(product => (
-            <div key={product._id} className="bg-white max-w-fit shadow-md rounded-lg overflow-hidden flex flex-col">
-              <ProductCard product={product} setProducts={setProducts} />
-            </div>
+            <ProductCard key={product._id} product={product} setProducts={setProducts} />
           ))}
         </div>
       )}
