@@ -34,7 +34,7 @@ const CustomerHome = () => {
       <div className="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map(p => (
           <div key={p._id} className="card bg-base-100 shadow-md p-3">
-            <img src={`https://foushack.onrender.com/${p.imageUrl}`} alt={p.title} className="w-full rounded-md h-48 object-cover"/>
+            <img src={p.imageUrl} alt={p.title} className="w-full rounded-md h-48 object-cover"/>
             <h3 className="text-lg text-center font-semibold">{p.title}</h3>
             <p className="text-gray-600 text-center">{p.content}</p>
             <p className="font-bold mt-2 text-center">₹ {p.price}</p>
