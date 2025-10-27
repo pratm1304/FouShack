@@ -1,0 +1,24 @@
+[33m9b93425[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33m9b93425[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{1}: commit: try
+[33meea9001[m HEAD@{2}: commit: chaanged ui
+[33mfa341c3[m HEAD@{3}: commit: chaanged quantity to qtyy
+[33m636069a[m HEAD@{4}: commit: chaanged quantity to qty
+[33m5943f0a[m HEAD@{5}: commit: corrected qty
+[33me21f248[m HEAD@{6}: commit: sorted order
+[33m462a425[m HEAD@{7}: commit: Added vercel.json for client-side routing
+[33m09ed52d[m HEAD@{8}: commit: Added root route redirect
+[33m560484d[m HEAD@{9}: commit: Fixed cart navigation route
+[33m7fee208[m HEAD@{10}: commit: Fixed /customer home
+[33m0782d02[m HEAD@{11}: commit: Fixed API routes - updated to /admin and /customer prefixes
+[33m7de1129[m HEAD@{12}: commit: good changes
+[33mdb510b6[m HEAD@{13}: commit (merge): Merge branch 'main' of https://github.com/pratm1304/FouShack
+[33m897a8f8[m HEAD@{14}: checkout: moving from main to main
+[33m897a8f8[m HEAD@{15}: rebase (abort): returning to refs/heads/main
+[33m865f416[m HEAD@{16}: commit: Enable CORS for Vercel frontend
+[33me6084d5[m HEAD@{17}: pull origin main --rebase (start): checkout e6084d5594678a17388ca131c027c47fee7b20b6
+[33m897a8f8[m HEAD@{18}: commit: Enable CORS for Vercel frontend
+[33m5aa6bdd[m HEAD@{19}: commit: foushack frontend deployment
+[33mfda95ad[m HEAD@{20}: commit: foushack frontend deployment
+[33mbbe99b5[m HEAD@{21}: commit: foushack backend url
+[33m3d381af[m HEAD@{22}: Branch: renamed refs/heads/master to refs/heads/main
+[33m3d381af[m HEAD@{24}: commit (initial): Initial commit - FouShack full project

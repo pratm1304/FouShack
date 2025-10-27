@@ -1,8 +1,11 @@
-import express from "express"
-import { getAllProducts,getProduct,getOrders, addProduct , updateProduct, deleteProduct } from "../controllers/appControllers.js";
-import { upload } from "../middleware/upload.js"; // multer middleware
+
+
+import express from "express";
+import { getAllProducts, getProduct, getOrders, addProduct, updateProduct, deleteProduct } from "../controllers/appControllers.js";
+import { upload } from "../config.js/cloudinary.js"; // Changed import
 
 const router = express.Router();
+
 router.get("/", getAllProducts);
 router.get("/orders", getOrders);
 router.get("/:id", getProduct);

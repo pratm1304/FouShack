@@ -44,7 +44,7 @@ const OrdersPage = () => {
               <h4 className="font-semibold">Items:</h4>
               <ul className="list-disc list-inside text-sm text-gray-700">
                 {order.items.map((item, idx) => (
-                  <li className='badge p-3 m-1 badge-soft badge-warning' key={idx}>{item.title} x {item.quantity}</li>
+                  <li className='badge p-3 m-1 badge-soft badge-warning' key={idx}>{item.title} x {item.qty}</li>
                 ))}
               </ul>
                 <span className="text-sm mt-2 text-gray-500 flex items-center gap-1">
