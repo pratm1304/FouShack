@@ -11,7 +11,7 @@ const ProductCard = ({ product, setProducts }) => {
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            await axios.delete(`${API_URL}/${id}`)
+            await axios.delete(`${API_URL}/admin/${id}`)
             setProducts((prev) => prev.filter((product) => product._id !== id))
             toast.success("Product deleted")
 
