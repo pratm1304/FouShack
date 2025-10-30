@@ -3,6 +3,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import API_URL from '../config/api'
 
 const ProductCard = ({ product, setProducts }) => {
 
@@ -10,7 +11,7 @@ const ProductCard = ({ product, setProducts }) => {
     const handleDelete = async (e, id) => {
         e.preventDefault();
         try {
-            await axios.delete(`https://foushack.onrender.com/admin/${id}`)
+            await axios.delete(`${API_URL}/${id}`)
             setProducts((prev) => prev.filter((product) => product._id !== id))
             toast.success("Product deleted")
 

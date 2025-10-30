@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { Link } from 'react-router'
 import {ArrowLeftIcon, Clock, Clock10 } from 'lucide-react'
 import { format } from 'date-fns-tz';
+import API_URL from '../config/api'
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([])
@@ -12,7 +13,7 @@ const OrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("https://foushack.onrender.com/admin/orders")
+        const res = await axios.get(`${API_URL}/admin/orders`)
         setOrders(res.data)
         console.log(res.data)
       } catch (err) {

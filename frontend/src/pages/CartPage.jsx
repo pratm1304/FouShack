@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import toast from "react-hot-toast";
+import API_URL from "../config/api";
 
 const CartPage = () => {
   const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem("cart")) || []);
@@ -31,7 +32,7 @@ const CartPage = () => {
     }
 
     try {
-      await axios.post("https://foushack.onrender.com/customer/order", { 
+      await axios.post(`${API_URL}/customer/order`, { 
         name,
         items: cart,
         totalAmount

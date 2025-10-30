@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import { Navigate } from 'react-router'
+import API_URL from '../config/api'
 
 const AddPage = () => {
   const [title, setTitle] = useState("")
@@ -33,7 +34,7 @@ const AddPage = () => {
     formData.append("price", price);
     formData.append("image", image); // file input
 
-    await axios.post("https://foushack.onrender.com/admin", formData, {
+    await axios.post(`${API_URL}/admin`, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }

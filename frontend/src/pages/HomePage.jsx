@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar"
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import ProductCard from '../components/ProductCard'
+import API_URL from '../config/api'
 
 
 const HomePage = () => {
@@ -12,7 +13,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async ()=> {
       try {
-        const res = await axios.get("https://foushack.onrender.com/admin")
+        const res = await axios.get(`${API_URL}/admin`)
         console.log(res.data);
         setProducts(res.data);
         

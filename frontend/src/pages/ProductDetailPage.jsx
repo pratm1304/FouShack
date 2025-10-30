@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 import axios from 'axios'
 import { useParams } from 'react-router'
+import API_URL from '../config/api'
 
 const ProductDetailPage = () => {
 
@@ -17,7 +18,7 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await axios.get(`https://foushack.onrender.com/admin/${id}`)
+      const res = await axios.get(`${API_URL}/admin/${id}`)
       // console.log(res.data.title)
       setTitle(res.data.title)
       setContent(res.data.content)
@@ -46,7 +47,7 @@ const ProductDetailPage = () => {
 
     if(image) formData.append("image", image); // only if user selected new image
 
-    await axios.put(`https://foushack.onrender.com/admin/${id}`, formData, {
+    await axios.put(`${API_URL}/admin/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }

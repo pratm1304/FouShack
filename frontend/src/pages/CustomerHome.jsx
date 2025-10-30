@@ -74,6 +74,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { LucideShoppingBasket, ShoppingBagIcon, ShoppingBasketIcon, ShoppingCart } from "lucide-react";
 import { useNavigate } from "react-router";
+import API_URL from "../config/api";
 
 const CustomerHome = () => {
   const [products, setProducts] = useState([]);
@@ -81,7 +82,7 @@ const CustomerHome = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://foushack.onrender.com/customer/")
+    axios.get(`${API_URL}/customer/`)
       .then(res => setProducts(Array.isArray(res.data) ? res.data : []))
       .catch(err => console.log(err));
   }, []);

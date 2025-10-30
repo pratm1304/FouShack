@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import axios from "axios";
 import { ShoppingCart } from "lucide-react";
+import API_URL from "../config/api";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -11,7 +12,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`https://foushack.onrender.com/customer/${id}`);
+        const res = await axios.get(`${API_URL}/customer/${id}`);
         setProduct(res.data);
       } catch (err) {
         console.error(err);
@@ -34,7 +35,7 @@ const ProductDetail = () => {
     <div className="container mx-auto p-6">
       <div className="card md:flex shadow-md">
         <img
-          src={`https://foushack.onrender.com/${product.imageUrl}`}
+          src={`${API_URL}/${product.imageUrl}`}
           alt={product.title}
           className="w-full md:w-1/3 h-64 object-cover rounded-md"
         />
