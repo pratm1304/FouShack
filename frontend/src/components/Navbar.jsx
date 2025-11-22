@@ -36,6 +36,13 @@ const Navbar = () => {
               <ShoppingCartIcon className='size-4 sm:size-5'/>
               <span className='whitespace-nowrap font-semibold'>Orders</span>
             </Link>
+
+            <Link 
+              to="/admin/inventory"
+              className="btn btn-primary"
+            >
+            Inventory
+            </Link>
           </div>
         </div>
       </div>

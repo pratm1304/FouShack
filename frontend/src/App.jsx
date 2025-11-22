@@ -8,6 +8,7 @@ import CustomerHome from './pages/CustomerHome.jsx';
 import CartPage from './pages/CartPage.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
 import OrdersPage from './pages/OrderPage.jsx'
+import InventoryPage from './pages/InventoryPage.jsx'; 
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/admin/add" element={<AddPage />} />
         <Route path="/admin/:id" element={<ProductDetailPage />} />
         <Route path="/admin/orders" element={<OrdersPage />} />
+        <Route path="/admin/inventory" element={<InventoryPage />} />
 
         <Route path="/customer/" element={<CustomerHome />} />
         <Route path="/customer/cart" element={<CartPage />} />
