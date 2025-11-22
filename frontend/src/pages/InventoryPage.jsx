@@ -664,42 +664,48 @@ const InventoryPage = () => {
     };
 
     const handleEndDay = () => {
-        if (window.confirm('End current day and move data to yesterday? This will reset today\'s inventory.')) {
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    if (window.confirm('End current day and move data to yesterday? This will reset today\'s inventory.')) {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 
-            // Save current inventory as yesterday's data with date
-            localStorage.setItem('yesterdayInventory', JSON.stringify(inventory));
-            localStorage.setItem('yesterdayDate', dateStr);
+        // **SAVE FINAL STOCK**
+        const finalStock = {};
+        products.forEach(product => {
+            finalStock[product._id] = getTotalForProduct(product._id);
+        });
 
-            // Reset current inventory
-            const resetInventory = {};
-            products.forEach(product => {
-                resetInventory[product._id] = {
-                    admin: 0,
-                    chef: 0,
-                    sales: 0,
-                    zomato: 0
-                };
-            });
-            setInventory(resetInventory);
-            setYesterdayInventory(inventory);
-            setYesterdayDate(dateStr);
-            localStorage.setItem('inventory', JSON.stringify(resetInventory));
+        localStorage.setItem('yesterdayInventory', JSON.stringify(finalStock));
+        localStorage.setItem('yesterdayDate', dateStr);
 
-            toast.success("Day ended! Yesterday's data saved.");
-        }
-    };
+        // RESET TODAY’S INPUTS
+        const resetInventory = {};
+        products.forEach(product => {
+            resetInventory[product._id] = { admin: 0, chef: 0, sales: 0, zomato: 0 };
+        });
+
+        setInventory(resetInventory);
+        setYesterdayInventory(finalStock);
+        setYesterdayDate(dateStr);
+        localStorage.setItem('inventory', JSON.stringify(resetInventory));
+
+        toast.success("Day ended! Yesterday stock saved & frozen.");
+    }
+};
+
 
     const getTotalForProduct = (productId) => {
-        const inv = inventory[productId] || { admin: 0, chef: 0, sales: 0, zomato: 0 };
-return Number(inv.chef || 0) - Number(inv.sales || 0) - Number(inv.zomato || 0);
-    };
+    const baseStock = getYesterdayTotal(productId);
+    const inv = inventory[productId] || { chef: 0, sales: 0, zomato: 0 };
+
+    return baseStock + Number(inv.chef || 0) - Number(inv.sales || 0) - Number(inv.zomato || 0);
+};
+
+
 
     const getYesterdayTotal = (productId) => {
-        const inv = yesterdayInventory[productId] || { admin: 0, chef: 0, sales: 0, zomato: 0 };
-        return inv.admin + inv.chef - inv.sales - inv.zomato;  // Add - inv.zomato
-    };
+    return Number(yesterdayInventory[productId]) || 0;
+};
+
 
     const getGrandTotal = () => {
         return products.reduce((total, product) => {
@@ -754,7 +760,7 @@ const revenue = (salesCount + zomatoCount) * price;
                             <>
                                 <button
                                     onClick={handleEndDay}
-                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-purple font-bold px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all"
+                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all"
                                 >
                                     <Calendar className="size-5" />
                                     <span className="hidden sm:inline">End Day</span>
@@ -762,7 +768,7 @@ const revenue = (salesCount + zomatoCount) * price;
 
                                 <button
                                     onClick={handleReset}
-                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-purple font-bold px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all"
+                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all"
                                 >
                                     <RefreshCw className="size-5" />
                                     <span className="hidden sm:inline">Reset</span>
@@ -983,7 +989,7 @@ const revenue = (salesCount + zomatoCount) * price;
                                             {products.reduce((sum, p) => sum + (inventory[p._id]?.zomato || 0), 0)}
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <span className="inline-block bg-gradient-to-r from-purple-700 to-pink-600 text-purple font-bold text-xl px-6 py-3 rounded-full shadow-lg">
+                                            <span className="inline-block bg-gradient-to-r from-purple-700 to-pink-600 text-white font-bold text-xl px-6 py-3 rounded-full shadow-lg">
                                                 {getGrandTotal()}
                                             </span>
                                         </td>
