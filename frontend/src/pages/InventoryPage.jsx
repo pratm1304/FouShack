@@ -153,11 +153,12 @@ const InventoryPage = () => {
         setInventory(resetInventory);
         setYesterdayInventory(newYesterdayInventory);
         
-        const dateStr = new Date().toLocaleDateString('en-IN', { 
-            day: '2-digit', 
-            month: 'short', 
-            year: 'numeric' 
-        });
+        const dateStr = new Date().toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+            }).replace(/ /g, ' ');
+
         setYesterdayDate(dateStr);
 
         toast.success("Day ended! Data saved to database.");
