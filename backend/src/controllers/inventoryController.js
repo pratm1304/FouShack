@@ -4,38 +4,21 @@ import Inventory from "../models/Inventory.js";
 
 
 export const getTodayInventory = async (req, res) => {
-    try {
-        const today = new Date().toLocaleDateString("en-IN");
+  try {
+    const today = formatDate();
 
-        let inventory = await Inventory.find({ date: today });
+    const inventory = await Inventory.find({ date: today });
 
-        // If no inventory found, load yesterday's values
-        if (inventory.length === 0) {
-            const yesterday = new Date(Date.now() - 86400000).toLocaleDateString("en-IN");
-            const yData = await Inventory.find({ date: yesterday });
-
-            if (yData.length > 0) {
-                // Insert yesterday values as today's base
-                const formatted = yData.map(item => ({
-                    productId: item.productId,
-                    yesterdayStock: item.yesterdayStock,
-                    admin: 0,
-                    chef: 0,
-                    sales: 0,
-                    zomato: 0,
-                    date: today
-                }));
-
-                await Inventory.insertMany(formatted);
-                return res.json(formatted);
-            }
-        }
-
-        res.json(inventory);
-    } catch (error) {
-        res.status(500).json({ error: "Server error" });
+    if (inventory.length === 0) {
+      return res.json([]);
     }
+
+    res.json(inventory);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
 };
+
 
 
 // Get yesterday's inventory
@@ -117,21 +100,12 @@ export async function saveInventory(req, res) {
 }
 
 export const endDay = async (req, res) => {
-    try {
-        
+  try {
+    const { inventory } = req.body;
+    const today = formatDate();
 
-        const { inventory } = req.body;
-        const today = new Date().toLocaleDateString('en-IN', { 
-
-      day: '2-digit', 
-      month: 'short', 
-      year: 'numeric' 
-    });
-
-    const updates = [];
-    
     for (const [productId, data] of Object.entries(inventory)) {
-      const update = await Inventory.findOneAndUpdate(
+      await Inventory.findOneAndUpdate(
         { productId, date: today },
         {
           productId,
@@ -140,18 +114,16 @@ export const endDay = async (req, res) => {
           chef: 0,
           sales: 0,
           zomato: 0,
-          yesterdayStock: data.yesterdayStock
+          yesterdayStock: data.yesterdayStock,
         },
-        { upsert: true, new: true }
+        { upsert: true }
       );
-      updates.push(update);
     }
 
-        res.json({ success: true, message: "Day closed successfully" });
-        await fetchInventory(); // 🔥 Reload updated DB data
-
-    } catch (error) {
-        res.status(500).json({ error: "Server error" });
-    }
+    res.json({ success: true, message: "Day closed successfully" });
+  } catch {
+    res.status(500).json({ error: "Server error" });
+  }
 };
+
 
