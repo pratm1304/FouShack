@@ -1,22 +1,35 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const InventorySchema = new mongoose.Schema({
+const inventorySchema = new mongoose.Schema({
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
+    required: true
+  },
   date: {
     type: String,
-    required: true,
+    required: true
   },
-  items: [
-    {
-      productId: { type: String, required: true },
-      admin: { type: Number, default: 0 },
-      chef: { type: Number, default: 0 },
-      sales: { type: Number, default: 0 },
-      zomato: { type: Number, default: 0 },
-      totalSales: { type: Number, default: 0 }
-    }
-  ],
-  totalRevenue: { type: Number, default: 0 },
-  updatedBy: { type: String }, // employee/admin identifier
+  admin: {
+    type: Number,
+    default: 0
+  },
+  chef: {
+    type: Number,
+    default: 0
+  },
+  sales: {
+    type: Number,
+    default: 0
+  },
+  zomato: {
+    type: Number,
+    default: 0
+  },
+  yesterdayStock: {
+    type: Number,
+    default: 0
+  }
 }, { timestamps: true });
 
-export default mongoose.model("Inventory", InventorySchema);
+export default mongoose.model('Inventory', inventorySchema);
