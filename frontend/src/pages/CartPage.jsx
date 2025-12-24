@@ -72,73 +72,77 @@ const CartPage = () => {
     return true;
   };
 
-  // Handle Payment
-  const handlePayment = async () => {
-    if (!validateForm()) return;
-    
-    setLoading(true);
-    try {
-      // Step 1: Create Razorpay order
-      const { data: order } = await axios.post(`${API_URL}/payment/create-order`, {
-        amount: totalAmount
-      });
+ const handlePayment = async () => {
+  if (!validateForm()) return;
+  
+  if (typeof window.Razorpay === 'undefined') {
+    toast.error("Payment gateway not loaded. Please refresh the page.");
+    return;
+  }
+  
+  setLoading(true);
+  try {
+    // Step 1: Create Razorpay order - CORRECT ROUTE
+    const { data: order } = await axios.post(`${API_URL}/admin/create-razorpay-order`, {
+      amount: totalAmount
+    });
 
-      // Step 2: Open Razorpay checkout
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Your Razorpay Key ID
-        amount: order.amount,
-        currency: order.currency,
-        name: "Your Store Name",
-        description: "Order Payment",
-        order_id: order.id,
-        handler: async function (response) {
-          try {
-            // Step 3: Verify payment and save order
-            const { data } = await axios.post(`${API_URL}/payment/verify`, {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-              name,
-              mobileNumber,
-              address,
-              items: cart,
-              totalAmount
-            });
+    // Step 2: Open Razorpay checkout
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: "FousHack",
+      description: "Order Payment",
+      order_id: order.id,
+      handler: async function (response) {
+        try {
+          // Step 3: Verify payment - CORRECT ROUTE
+          const { data } = await axios.post(`${API_URL}/admin/verify-payment`, {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            name,
+            mobileNumber,
+            address,
+            items: cart,
+            totalAmount
+          });
 
-            if (data.success) {
-              toast.success("Payment successful! Order placed.");
-              localStorage.removeItem("cart");
-              setCart([]);
-              navigate("/order-success"); // or wherever you want to redirect
-            }
-          } catch (error) {
-            toast.error("Payment verification failed");
-            console.error(error);
+          if (data.success) {
+            toast.success("Payment successful! Order placed.");
+            localStorage.removeItem("cart");
+            setCart([]);
+            navigate("/");
           }
-        },
-        prefill: {
-          name: name,
-          contact: mobileNumber
-        },
-        theme: {
-          color: "#000000"
+        } catch (error) {
+          toast.error("Payment verification failed");
+          console.error(error);
         }
-      };
+      },
+      prefill: {
+        name: name,
+        contact: mobileNumber
+      },
+      theme: {
+        color: "#000000"
+      }
+    };
 
-      const rzp = new window.Razorpay(options);
-      rzp.on("payment.failed", function (response) {
-        toast.error("Payment failed. Please try again.");
-        console.error(response.error);
-      });
-      rzp.open();
+    const rzp = new window.Razorpay(options);
+    rzp.on("payment.failed", function (response) {
+      toast.error("Payment failed. Please try again.");
+      console.error(response.error);
+    });
+    rzp.open();
 
-    } catch (error) {
-      toast.error("Failed to initiate payment");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (error) {
+    toast.error("Failed to initiate payment");
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
