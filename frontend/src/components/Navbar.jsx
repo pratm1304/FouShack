@@ -9,14 +9,10 @@ const Navbar = () => {
         <div className='flex flex-col sm:flex-row items-center justify-between gap-4'>
           {/* Logo with Bakery Icon */}
           <Link to="/admin" className='flex items-center gap-3 hover:scale-105 transition-transform'>
-            <div className='bg-white p-2 rounded-full shadow-md'>
-              <CakeIcon className='size-6 sm:size-8 text-purple-600' />
-            </div>
             <div>
               <h1 className='text-2xl sm:text-4xl font-bold text-white font-serif tracking-wide drop-shadow-lg'>
                 Fou Shack
               </h1>
-              <p className='text-xs sm:text-sm text-purple-100 font-light'>Artisan Bakery</p>
             </div>
           </Link>
           
@@ -35,13 +31,6 @@ const Navbar = () => {
             >
               <ShoppingCartIcon className='size-4 sm:size-5'/>
               <span className='whitespace-nowrap font-semibold'>Orders</span>
-            </Link>
-
-            <Link 
-              to="/admin/inventory"
-              className="btn btn-primary"
-            >
-            Inventory
             </Link>
           </div>
         </div>

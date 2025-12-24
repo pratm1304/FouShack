@@ -1,4 +1,3 @@
-import Inventory from '../models/Inventory.js';
 import Product from "../models/Product.js";
 import Order from "../models/orderModel.js"
 import { cloudinary } from '../config.js/cloudinary.js';
