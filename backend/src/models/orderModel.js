@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-  name: {type: String, required: true},
+  name: { type: String, required: true },
+  mobileNumber: { type: String, required: true }, // NEW
+  address: { // NEW
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    pincode: { type: String, required: true }
+  },
   items: [
     {
       _id: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
@@ -12,7 +19,7 @@ const orderSchema = new mongoose.Schema({
   ],
   totalAmount: { type: Number, required: true },
 
-  // Payment fields (ADD THESE)
+  // Payment fields
   paymentStatus: { 
     type: String, 
     enum: ['pending', 'paid', 'failed'], 

@@ -23,9 +23,13 @@ const InventoryPage = () => {
 
     useEffect(() => {
     const loadData = async () => {
-        await fetchProducts();
-        await fetchInventory();
-        await loadYesterdayData();
+        try {
+            await fetchProducts();
+            await fetchInventory();
+            await loadYesterdayData();
+        } finally {
+            setLoading(false);
+        }
     };
     
     loadData();
@@ -36,18 +40,22 @@ const InventoryPage = () => {
 }, []);
 
     const updateDateTime = () => {
-        const now = new Date();
-        const options = {
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        };
-        setCurrentDateTime(now.toLocaleString('en-IN', options));
-    };
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    }).replace(/ /g, ' ');
+    
+    const timeStr = now.toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    });
+    
+    setCurrentDateTime(`${dateStr}, ${timeStr}`);
+};
 
     const fetchProducts = async () => {
     try {
@@ -56,29 +64,36 @@ const InventoryPage = () => {
     } catch (error) {
         console.error(error);
         toast.error("Failed to fetch products");
-    } finally {
-        setLoading(false);
     }
 };
 
-    const fetchInventory = async () => {
+   const fetchInventory = async () => {
   try {
-    console.log("API URL ->", API_URL);
+    console.log("Fetching inventory from:", `${API_URL}/inventory/today`);
 
     const res = await axios.get(`${API_URL}/inventory/today`);
+    console.log("Received inventory data:", res.data);
+    
     const inventoryData = {};
-    res.data.forEach(item => {
-      inventoryData[item.productId] = {
-        admin: item.admin,
-        chef: item.chef,
-        sales: item.sales,
-        zomato: item.zomato
-      };
-    });
+    
+    if (res.data && res.data.length > 0) {
+      res.data.forEach(item => {
+        inventoryData[item.productId] = {
+          admin: Number(item.admin) || 0,
+          chef: Number(item.chef) || 0,
+          sales: Number(item.sales) || 0,
+          zomato: Number(item.zomato) || 0,
+        };
+      });
+      console.log("Processed inventory:", inventoryData);
+    }
+    
     setInventory(inventoryData);
     return inventoryData;
   } catch (error) {
-    console.log("Using localStorage fallback");
+    console.error("Failed to fetch inventory:", error);
+    toast.error("Failed to load inventory");
+    return {};
   }
 };
 
@@ -87,14 +102,17 @@ const InventoryPage = () => {
         const res = await axios.get(`${API_URL}/inventory/yesterday`);
         const yesterdayData = {};
         
-        res.data.inventory.forEach(item => {
-            yesterdayData[item.productId] = item.yesterdayStock;
-        });
+        if (res.data.inventory && Array.isArray(res.data.inventory)) {
+            res.data.inventory.forEach(item => {
+                yesterdayData[item.productId] = Number(item.yesterdayStock) || 0;
+            });
+        }
         
         setYesterdayInventory(yesterdayData);
-        setYesterdayDate(res.data.date);
+        setYesterdayDate(res.data.date || '');
+        console.log("Yesterday inventory loaded:", yesterdayData);
     } catch (error) {
-        console.error("Failed to load yesterday's data from DB");
+        console.error("Failed to load yesterday's data");
         setYesterdayInventory({});
         setYesterdayDate('');
     }
@@ -124,52 +142,33 @@ const InventoryPage = () => {
     };
 
     const handleEndDay = async () => {
-    if (!window.confirm("Are you sure you want to end the day?")) return;
+  if (!window.confirm("Are you sure you want to end the day?")) return;
 
-    try {
-        const formatted = {};
-        
-        products.forEach(p => {
-            formatted[p._id] = {
-                yesterdayStock: getTotalForProduct(p._id),
-                admin: 0,
-                chef: 0,
-                sales: 0,
-                zomato: 0
-            };
-        });
+  try {
+    const formattedInventory = {};
 
-        await axios.post(`${API_URL}/inventory/end-day`, { inventory: formatted });
+    products.forEach(p => {
+  const item = inventory[p._id];
 
-        // Update local state
-        const resetInventory = {};
-        const newYesterdayInventory = {};
-        
-        products.forEach(p => {
-            resetInventory[p._id] = { admin: 0, chef: 0, sales: 0, zomato: 0 };
-            newYesterdayInventory[p._id] = formatted[p._id].yesterdayStock;
-        });
-        
-        setInventory(resetInventory);
-        setYesterdayInventory(newYesterdayInventory);
-        
-        const dateStr = new Date().toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric"
-            }).replace(/ /g, ' ');
+  formattedInventory[p._id] = {
+    yesterdayStock: item.totalStock, // FINAL STOCK MOVE
+    admin: 0,
+    chef: 0,
+    sales: 0,
+    zomato: 0,
+  };
+});
 
-        setYesterdayDate(dateStr);
 
-        toast.success("Day ended! Data saved to database.");
+    await axios.post(`${API_URL}/inventory/end-day`, { inventory });
+await fetchInventory(); // () IMPORTANT
+toast.success("Day closed & stock updated");
 
-        
-
-    } catch (error) {
-        console.error(error);
-        toast.error("Failed to end day");
-    }
+  } catch (err) {
+    toast.error("Error closing day");
+  }
 };
+
 
 
 

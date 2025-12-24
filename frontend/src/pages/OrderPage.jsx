@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Link } from 'react-router'
-import { ArrowLeft, Clock, CheckCircle, XCircle, AlertCircle, Package, IndianRupee, Sparkles } from 'lucide-react'
+import { ArrowLeft, Clock, CheckCircle, XCircle, AlertCircle, Package, IndianRupee, Sparkles, MapPin, Phone } from 'lucide-react'
 import { format } from 'date-fns-tz'
 import API_URL from '../config/api'
 
@@ -122,7 +122,7 @@ const OrdersPage = () => {
         )}
 
         {/* Orders Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 animate-fadeIn">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 animate-fadeIn">
           {orders.map(order => {
             const statusBadge = getStatusBadge(order.paymentStatus);
             
@@ -153,6 +153,28 @@ const OrdersPage = () => {
                       #{order._id?.slice(-8).toUpperCase()}
                     </p>
                   </div>
+
+                  {/* Mobile Number - NEW */}
+                  {order.mobileNumber && (
+                    <div className="mb-4 flex items-center gap-2 text-purple-700">
+                      <Phone className="size-4" />
+                      <span className="text-sm font-medium">{order.mobileNumber}</span>
+                    </div>
+                  )}
+
+                  {/* Address - NEW */}
+                  {order.address && (
+                    <div className="mb-4 bg-purple-50 rounded-2xl p-4">
+                      <div className="flex items-start gap-2">
+                        <MapPin className="size-4 text-purple-600 mt-0.5 flex-shrink-0" />
+                        <div className="text-sm text-purple-800">
+                          <p className="font-medium">{order.address.street}</p>
+                          <p>{order.address.city}, {order.address.state}</p>
+                          <p className="font-semibold">{order.address.pincode}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Amount */}
                   <div className="mb-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl p-4">

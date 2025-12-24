@@ -228,6 +228,8 @@ export async function verifyPaymentAndSaveOrder(req, res) {
       razorpay_payment_id,
       razorpay_signature,
       name,
+      mobileNumber,  // NEW
+      address,       // NEW
       items,
       totalAmount
     } = req.body;
@@ -243,6 +245,8 @@ export async function verifyPaymentAndSaveOrder(req, res) {
       // Payment verified - save order with 'paid' status
       const order = new Order({
         name,
+        mobileNumber,  // NEW
+        address,       // NEW
         items,
         totalAmount,
         paymentStatus: 'paid',
@@ -258,7 +262,6 @@ export async function verifyPaymentAndSaveOrder(req, res) {
         order 
       });
     } else {
-      // Invalid signature
       res.status(400).json({ 
         success: false, 
         message: "Invalid payment signature" 
