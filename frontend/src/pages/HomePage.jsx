@@ -5,7 +5,6 @@ import toast from 'react-hot-toast'
 import ProductCard from '../components/ProductCard'
 import API_URL from '../config/api'
 
-
 const HomePage = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -19,7 +18,7 @@ const HomePage = () => {
         
       } catch (error) {
         console.log("Error fetching products");
-        
+        toast.error("Failed to fetch products")
       } finally {
         setLoading(false)
       }
@@ -29,25 +28,17 @@ const HomePage = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-purple-50 to-pink-50 relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute top-1/3 right-0 w-80 h-80 bg-pink-300/20 rounded-full blur-3xl translate-x-1/3"></div>
-        <div className="absolute bottom-0 left-1/3 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl translate-y-1/2"></div>
-      </div>
-
+    <div className="min-h-screen bg-black text-white">
       <Navbar />
 
-      <div className="container relative z-10 mx-auto p-4 min-h-screen">
+      <div className="container mx-auto p-4 md:p-6 min-h-screen">
         {/* Loading State */}
         {loading && (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="relative">
-              <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
-              <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-b-pink-400 rounded-full animate-spin animation-delay-150"></div>
+              <div className="w-16 h-16 border-4 border-neutral-800 border-t-white rounded-full animate-spin"></div>
             </div>
-            <p className="mt-6 text-purple-700 font-semibold text-lg animate-pulse">
+            <p className="mt-6 text-gray-400 font-semibold text-lg animate-pulse">
               Loading delicious products...
             </p>
           </div>
@@ -55,7 +46,7 @@ const HomePage = () => {
         
         {/* Products Grid */}
         {products.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-6 animate-fadeIn">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-6">
             {products.map(product => (
               <ProductCard key={product._id} product={product} setProducts={setProducts} />
             ))}
@@ -65,37 +56,16 @@ const HomePage = () => {
         {/* Empty State */}
         {!loading && products.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20">
-            <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-md text-center border-2 border-purple-100">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full mx-auto mb-6 flex items-center justify-center">
+            <div className="bg-neutral-900 border border-white/10 rounded-3xl p-12 max-w-md text-center">
+              <div className="w-20 h-20 bg-neutral-800 rounded-full mx-auto mb-6 flex items-center justify-center">
                 <span className="text-4xl">🍰</span>
               </div>
-              <h3 className="text-2xl font-bold text-purple-900 mb-3">No Products Yet</h3>
-              <p className="text-purple-600">Start adding your delicious bakery items!</p>
+              <h3 className="text-2xl font-bold text-white mb-3">No Products Yet</h3>
+              <p className="text-gray-400">Start adding your delicious bakery items!</p>
             </div>
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fadeIn {
-          animation: fadeIn 0.6s ease-out;
-        }
-        
-        .animation-delay-150 {
-          animation-delay: 150ms;
-        }
-      `}</style>
     </div>
   )
 }

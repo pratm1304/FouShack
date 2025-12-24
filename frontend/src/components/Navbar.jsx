@@ -1,42 +1,41 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { PlusIcon, ShoppingCartIcon, CakeIcon } from 'lucide-react';
+import { Plus, Package, ShoppingBag } from 'lucide-react'
 
 const Navbar = () => {
   return (
-    <header className='bg-gradient-to-r from-purple-600 via-purple-500 to-pink-500 shadow-lg'>
-      <div className='container mx-auto px-4 py-4'>
-        <div className='flex flex-col sm:flex-row items-center justify-between gap-4'>
-          {/* Logo with Bakery Icon */}
-          <Link to="/admin" className='flex items-center gap-3 hover:scale-105 transition-transform'>
-            <div>
-              <h1 className='text-2xl sm:text-4xl font-bold text-white font-serif tracking-wide drop-shadow-lg'>
-                Fou Shack
-              </h1>
-            </div>
+    <nav className="bg-neutral-900 border-b border-white/10 sticky top-0 z-50 backdrop-blur-lg bg-neutral-900/80">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          {/* Logo/Brand */}
+          <Link to="/admin" className="text-2xl font-bold text-white hover:text-gray-300 transition-colors">
+             FOU SHACK 
           </Link>
-          
-          {/* Action Buttons */}
-          <div className='flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto'>
+
+          {/* Navigation Links */}
+          <div className="flex items-center gap-3">
+            {/* Add Product Button */}
             <Link 
               to="/admin/add" 
-              className='btn bg-white text-purple-600 hover:bg-purple-50 border-none btn-sm sm:btn-md flex items-center justify-center gap-2 shadow-md hover:shadow-xl transition-all'
+              className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full font-semibold hover:bg-gray-200 transition-all duration-300"
             >
-              <PlusIcon className='size-4 sm:size-5'/>
-              <span className='whitespace-nowrap font-semibold'>Add Product</span>
+              <Plus className="size-4" />
+              <span className="hidden sm:inline">Add Product</span>
             </Link>
+
+            {/* Orders Button */}
             <Link 
               to="/admin/orders" 
-              className='btn bg-yellow-400 text-purple-900 hover:bg-yellow-300 border-none btn-sm sm:btn-md flex items-center justify-center gap-2 shadow-md hover:shadow-xl transition-all'
+              className="flex items-center gap-2 bg-neutral-800 text-white border border-white/10 px-4 py-2 rounded-full font-semibold hover:bg-neutral-700 transition-all duration-300"
             >
-              <ShoppingCartIcon className='size-4 sm:size-5'/>
-              <span className='whitespace-nowrap font-semibold'>Orders</span>
+              <ShoppingBag className="size-4" />
+              <span className="hidden sm:inline">Orders</span>
             </Link>
           </div>
         </div>
       </div>
-    </header>
+    </nav>
   )
-};
+}
 
 export default Navbar
