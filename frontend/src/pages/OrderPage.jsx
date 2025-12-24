@@ -11,20 +11,29 @@ const OrdersPage = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/admin/orders`)
+  const fetchOrders = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/admin/orders`)
+      
+      // Add validation check
+      if (Array.isArray(res.data)) {
         setOrders(res.data)
         console.log(res.data)
-      } catch (err) {
-        console.log(err)
-        toast.error("Failed to fetch orders")
-      } finally {
-        setLoading(false)
+      } else {
+        console.error("Expected array, got:", res.data)
+        toast.error("Invalid data format received")
+        setOrders([])  // Set empty array as fallback
       }
+    } catch (err) {
+      console.log(err)
+      toast.error("Failed to fetch orders")
+      setOrders([])  // Set empty array on error
+    } finally {
+      setLoading(false)
     }
-    fetchOrders()
-  }, [])
+  }
+  fetchOrders()
+}, [])
 
   const getStatusBadge = (status) => {
     switch (status) {

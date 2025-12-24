@@ -10,7 +10,11 @@ export async function getAllProducts(_req, res){
         const products = await Product.find().sort({createdAt: -1});
         res.json(products);
     } catch (error) {
-        res.json("Internal server error");
+        // ❌ Don't return string
+        // res.json("Internal server error");
+        
+        // ✅ Return proper error object
+        res.status(500).json({ message: "Internal server error" });
         console.log(error);
     }
 };
@@ -18,9 +22,12 @@ export async function getAllProducts(_req, res){
 export async function getProduct(req, res){
     try {
         const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
         res.json(product);
     } catch (error) {
-        res.json("Internal server error");
+        res.status(500).json({ message: "Internal server error" });
         console.log(error);
     }
 };
